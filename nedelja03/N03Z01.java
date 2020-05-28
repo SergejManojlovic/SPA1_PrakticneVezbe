@@ -102,27 +102,44 @@ class ListaStringova {
 	
 	public int brojPojava(String s) {
 		
-		int count = 0;
+		if (prvi != null) {
 		
-		Element tekuci = prvi;
-		
-		while (tekuci != null) {
-			if (tekuci.info.equals(s))
-				count++;
-			tekuci = tekuci.veza;
+			int count = 0;
+			
+			Element tekuci = prvi;
+			
+			while (tekuci != null) {
+				if (tekuci.info.equals(s))
+					count++;
+				tekuci = tekuci.veza;
+			}
+			
+			return count;
+			
+		} else {
+			
+			System.out.println("Lista je prazna.");
+			
+			return -1;
 		}
-		
-		return count;
 	}
 	
 	
 	public void stampajPoslednji() {
 		
-		Element tekuci = prvi;
+		if (prvi != null) {
 		
-		while (tekuci.veza != null) tekuci = tekuci.veza;
-		
-		System.out.println("Poslednji element liste: " + tekuci);
+			Element tekuci = prvi;
+			
+			while (tekuci.veza != null) tekuci = tekuci.veza;
+			
+			System.out.println("Poslednji element liste: " + tekuci);
+			
+		} else {
+			
+			System.out.println("Lista je prazna.");
+			
+		}
 	}
 	
 	

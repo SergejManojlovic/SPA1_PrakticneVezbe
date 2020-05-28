@@ -75,128 +75,154 @@ class ListaKaraktera {
 	
 	public void stampajVelikaSlova() {
 		
-		Element tekuci = prvi;
-		
-		System.out.print("Velika slova u listi: ");
-		
-		while (tekuci != null) {
-			if ('A' <= tekuci.info && tekuci.info <= 'Z')
-				System.out.print(tekuci + " ");
-			tekuci = tekuci.veza;
+		if (prvi != null) {
+			Element tekuci = prvi;
+			
+			System.out.print("Velika slova u listi: ");
+			
+			while (tekuci != null) {
+				if ('A' <= tekuci.info && tekuci.info <= 'Z')
+					System.out.print(tekuci + " ");
+				tekuci = tekuci.veza;
+			}
+			System.out.println();
+			
+		} else {
+			
+			System.out.println("Lista je prazna.");
+			
 		}
-		System.out.println();
 	}
 	
 	
 	public void izbaciMalaSlova() {
 		
-		while ('a' <= prvi.info && prvi.info <= 'z')
-			prvi = prvi.veza;
-		
 		if (prvi != null) {
-			Element prethodni = prvi;
+		
+			while ('a' <= prvi.info && prvi.info <= 'z')
+				prvi = prvi.veza;
 			
-			while (prethodni.veza != null) {
+			if (prvi != null) {
+				Element prethodni = prvi;
 				
-				if ('a' <= prethodni.veza.info && prethodni.veza.info <= 'z') {
-					prethodni.veza = prethodni.veza.veza;
-				} else {
-					prethodni = prethodni.veza;
+				while (prethodni.veza != null) {
+					
+					if ('a' <= prethodni.veza.info && prethodni.veza.info <= 'z') {
+						prethodni.veza = prethodni.veza.veza;
+					} else {
+						prethodni = prethodni.veza;
+					}
 				}
 			}
+			
+		} else {
+			
+			System.out.println("Lista je prazna.");
+			
 		}
 	}
 	
 	
 	public ListaKaraktera izdvojCifre() {
 		
-		ListaKaraktera cifre = new ListaKaraktera();
-		
-		Element cifreKraj = null;
-		
-		Element tekuci, prethodni;
-		
-		/**
-		 * prva provera - da li je na pocetku ulazne liste niz cifara
-		 */
-		
-		while (prvi != null && Character.isDigit(prvi.info)) {
-			
-			tekuci = prvi;
-			prvi = prvi.veza;
-			
-			if (cifre.prvi == null) {
-				
-				/**
-				 * na prvo mesto dolazi tekuci, kraj dolazi takodje is-
-				 * to na prvo mesto (buduci da postoji samo jedan elem-
-				 * ent u listi trenutno), poslednji element pokazuje na
-				 * null
-				 */
-				
-				cifre.prvi = tekuci;
-				cifreKraj = tekuci;
-				tekuci.veza = null;
-			} else {
-				
-				/**
-				 * ako je prvo mesto popunjeno kraj liste cifara pokaz-
-				 * ivace ka tekucem, tekuci ce pokazivati ka null a kr-
-				 * aj cifara ce se pomeriti na tekuci
-				 */
-				
-				cifreKraj.veza = tekuci;
-				tekuci.veza = null;
-				cifreKraj = tekuci;
-			}
-		}
-		
-		/**
-		 * proveravamo da li smo stigli do kraja ulazne liste i ako ni-
-		 * smo trazimo cifre dalje u listi
-		 */
-		
 		if (prvi != null) {
+		
+			ListaKaraktera cifre = new ListaKaraktera();
 			
-			tekuci = prvi;
+			Element cifreKraj = null;
 			
-			while (tekuci.veza != null) {
+			Element tekuci, prethodni;
+			
+			/**
+			 * prva provera - da li je na pocetku ulazne liste niz cifara
+			 */
+			
+			while (prvi != null && Character.isDigit(prvi.info)) {
 				
-				prethodni = tekuci;
-				tekuci = tekuci.veza;
+				tekuci = prvi;
+				prvi = prvi.veza;
 				
-				if (Character.isDigit(tekuci.info)) {
+				if (cifre.prvi == null) {
 					
 					/**
-					 * ponovo imamo dve varijante gde su cifre ili pra-
-					 * zne ili nisu
+					 * na prvo mesto dolazi tekuci, kraj dolazi takodje is-
+					 * to na prvo mesto (buduci da postoji samo jedan elem-
+					 * ent u listi trenutno), poslednji element pokazuje na
+					 * null
 					 */
 					
-					prethodni.veza = tekuci.veza;
-					
-					if (cifre.prvi == null) {
-						
-						cifre.prvi = tekuci;
-						cifreKraj = tekuci;
-						tekuci.veza = null;
-					} else {
-						
-						cifreKraj.veza = tekuci;
-						tekuci.veza = null;
-						cifreKraj = tekuci;
-					}
+					cifre.prvi = tekuci;
+					cifreKraj = tekuci;
+					tekuci.veza = null;
+				} else {
 					
 					/**
-					 * bitan momenat - vracamo tekuci na prethodni zato
-					 * sto tako proveravamo da li imamo uzastopne cifre
-					 * u ulaznoj listi
+					 * ako je prvo mesto popunjeno kraj liste cifara pokaz-
+					 * ivace ka tekucem, tekuci ce pokazivati ka null a kr-
+					 * aj cifara ce se pomeriti na tekuci
 					 */
 					
-					tekuci = prethodni;
+					cifreKraj.veza = tekuci;
+					tekuci.veza = null;
+					cifreKraj = tekuci;
 				}
 			}
+			
+			/**
+			 * proveravamo da li smo stigli do kraja ulazne liste i ako ni-
+			 * smo trazimo cifre dalje u listi
+			 */
+			
+			if (prvi != null) {
+				
+				tekuci = prvi;
+				
+				while (tekuci.veza != null) {
+					
+					prethodni = tekuci;
+					tekuci = tekuci.veza;
+					
+					if (Character.isDigit(tekuci.info)) {
+						
+						/**
+						 * ponovo imamo dve varijante gde su cifre ili pra-
+						 * zne ili nisu
+						 */
+						
+						prethodni.veza = tekuci.veza;
+						
+						if (cifre.prvi == null) {
+							
+							cifre.prvi = tekuci;
+							cifreKraj = tekuci;
+							tekuci.veza = null;
+						} else {
+							
+							cifreKraj.veza = tekuci;
+							tekuci.veza = null;
+							cifreKraj = tekuci;
+						}
+						
+						/**
+						 * bitan momenat - vracamo tekuci na prethodni zato
+						 * sto tako proveravamo da li imamo uzastopne cifre
+						 * u ulaznoj listi
+						 */
+						
+						tekuci = prethodni;
+					}
+				}
+			}
+			
+			return cifre;
+			
+		} else {
+			
+			System.out.println("Lista je prazna.");
+			
+			return null;
+			
 		}
-		return cifre;
 	}	// izdvaja cifre iz originalne liste tako da se koristi ista memorija
 	
 	
